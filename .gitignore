@@ -1,0 +1,6 @@
+
+# local + build
+.env
+node_modules/
+dist/
+data/

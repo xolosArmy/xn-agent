@@ -54,8 +54,11 @@ CHRONIK_URL=https://chronik.example
 RMZ_TOKEN_ID=...
 RMZSTATE_TOKEN_ID=...
 REWARD_WALLET_MNEMONIC=... # or REWARD_WALLET_WIF
+REWARD_DRY_RUN=false
+TRIVIA_ADMIN_TOKEN=... # Bearer token for admin endpoints
 TRIVIA_SALT=... # server secret
 DAILY_CAP_RMZ=50
+CLAIM_RATE_LIMIT_PER_MINUTE=10
 MAX_WIN_PER_USER_PER_DAY=1
 MAX_RMZ_PER_USER_PER_DAY=3
 ```
@@ -64,6 +67,7 @@ MAX_RMZ_PER_USER_PER_DAY=3
 ```
 curl -X POST http://localhost:3000/api/trivia/create \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <TRIVIA_ADMIN_TOKEN>" \
   -d '{
     "triviaId": "trivia-001",
     "tweetId": "1850000000000000000",
@@ -75,6 +79,7 @@ curl -X POST http://localhost:3000/api/trivia/create \
 ```
 curl -X POST http://localhost:3000/api/trivia/close \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <TRIVIA_ADMIN_TOKEN>" \
   -d '{"triviaId":"trivia-001"}'
 ```
 
@@ -84,6 +89,7 @@ curl -X POST http://localhost:3000/api/claim \
   -H "Content-Type: application/json" \
   -d '{"claimCode":"<code>","address":"ecash:..."}'
 ```
+Note: `address` is the RMZState NFT owner address and also the payout address.
 
 Notes:
 - `TRIVIA_SALT` is required for deterministic winner selection.
